@@ -1,0 +1,12 @@
+node_modules/
+.env
+.venv
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+dist/
+build/
+coverage/
+*.log
+.gemini/
