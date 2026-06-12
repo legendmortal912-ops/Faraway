@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Ambulance, Plane, AlertTriangle, MapPin } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid, ReferenceLine } from 'recharts';
 
 const DEMO_VEHICLES_MAP = [
-  { id: 'AMB-DL-01', driver: 'Rajesh Kumar', type: '🚑 Ground', lat: 28.66, lng: 77.22, boxes: ['BOX-KDN-01', 'BOX-HRT-02'], status: 'IN_TRANSIT', overall: 'GOOD' },
-  { id: 'AIR-142', driver: 'Capt. Mehta', type: '✈️ Air', lat: 48.85, lng: 2.35, boxes: ['BOX-LVR-01'], status: 'IN_TRANSIT', overall: 'WARNING' },
+  { id: 'AMB-DL-01', driver: 'Rajesh Kumar', type: 'Ground', isGround: true, lat: 28.66, lng: 77.22, boxes: ['BOX-KDN-01', 'BOX-HRT-02'], status: 'IN_TRANSIT', overall: 'GOOD' },
+  { id: 'AIR-142', driver: 'Capt. Mehta', type: 'Air', isGround: false, lat: 48.85, lng: 2.35, boxes: ['BOX-LVR-01'], status: 'IN_TRANSIT', overall: 'WARNING' },
 ];
 
 export default function LiveTracking() {
-  const { localBoxes, telemetryHistory, activeAlerts, alarmActive } = useLifeMeshStore();
+  const { localBoxes, telemetryHistory, alarmActive } = useLifeMeshStore();
   const [selectedVehicle, setSelectedVehicle] = useState(DEMO_VEHICLES_MAP[0]);
   const [selectedBox, setSelectedBox] = useState(null);
 
@@ -22,7 +23,7 @@ export default function LiveTracking() {
         {alarmActive && (
           <motion.div initial={{ y: -40 }} animate={{ y: 0 }}
             style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.4)', borderRadius: 10, padding: '14px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: '1.4rem', animation: 'pulse 0.8s infinite' }}>🚨</span>
+            <span style={{ animation: 'pulse 0.8s infinite', display: 'flex' }}><AlertTriangle size={24} color="#f87171" /></span>
             <div style={{ flex: 1 }}>
               <div style={{ color: '#f87171', fontWeight: 800, marginBottom: 2 }}>CRITICAL COLD CHAIN BREACH DETECTED</div>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>Temperature threshold exceeded — immediate action required</div>
@@ -42,7 +43,9 @@ export default function LiveTracking() {
             <button key={v.id} onClick={() => { setSelectedVehicle(v); setSelectedBox(null); }}
               className="glass" style={{ padding: '12px 18px', cursor: 'pointer', border: `1px solid ${selectedVehicle.id === v.id ? 'var(--accent-light)' : 'var(--border)'}`, background: selectedVehicle.id === v.id ? 'rgba(167,139,250,0.1)' : 'transparent', textAlign: 'left', borderRadius: 10 }}>
               <div style={{ fontWeight: 700, fontSize: '0.85rem', color: selectedVehicle.id === v.id ? 'var(--accent-light)' : 'var(--text-primary)' }}>{v.id}</div>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 2 }}>{v.type} · {v.driver}</div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
+                {v.isGround ? <Ambulance size={12} /> : <Plane size={12} />} {v.type} · {v.driver}
+              </div>
               <div style={{ fontSize: '0.68rem', marginTop: 4, color: v.overall === 'GOOD' ? 'var(--success)' : 'var(--warning)', fontWeight: 600 }}>● {v.overall}</div>
             </button>
           ))}
@@ -52,18 +55,15 @@ export default function LiveTracking() {
           {/* Map Placeholder */}
           <div className="glass" style={{ padding: 0, overflow: 'hidden', minHeight: 400, position: 'relative' }}>
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, #0d1117 0%, #0a0f1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-              {/* Simplified SVG Globe */}
               <svg width="300" height="300" viewBox="0 0 300 300" style={{ opacity: 0.4 }}>
                 <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(0,212,170,0.2)" strokeWidth="1" />
                 <ellipse cx="150" cy="150" rx="120" ry="40" fill="none" stroke="rgba(0,212,170,0.1)" strokeWidth="1" />
                 <ellipse cx="150" cy="150" rx="120" ry="80" fill="none" stroke="rgba(0,212,170,0.1)" strokeWidth="1" />
                 <line x1="30" y1="150" x2="270" y2="150" stroke="rgba(0,212,170,0.1)" strokeWidth="1" />
                 <line x1="150" y1="30" x2="150" y2="270" stroke="rgba(0,212,170,0.1)" strokeWidth="1" />
-                {/* Route arc */}
                 <path d="M 90 160 Q 150 80 210 140" fill="none" stroke="var(--accent)" strokeWidth="2" strokeDasharray="4 4">
                   <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="1s" repeatCount="indefinite" />
                 </path>
-                {/* Vehicle dot */}
                 <circle cx="150" cy="120" r="6" fill="var(--accent)">
                   <animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite" />
                 </circle>
@@ -71,7 +71,7 @@ export default function LiveTracking() {
                 <circle cx="210" cy="140" r="4" fill="rgba(0,212,170,0.5)" />
               </svg>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ color: 'var(--accent)', fontWeight: 700, marginBottom: 4 }}>📍 {selectedVehicle.id} — Live Position</div>
+                <div style={{ color: 'var(--accent)', fontWeight: 700, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center' }}><MapPin size={16} /> {selectedVehicle.id} — Live Position</div>
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>lat: {selectedVehicle.lat}° · lng: {selectedVehicle.lng}°</div>
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: 4 }}>Add Mapbox token in Tracking.jsx for full 3D globe</div>
               </div>

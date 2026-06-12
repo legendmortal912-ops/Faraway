@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
 import { motion } from 'framer-motion';
-import { Shield, Globe, Users } from 'lucide-react';
+import { Shield, Globe, Users, Building2, Lock } from 'lucide-react';
 const COUNTRY_FLAGS = { IN: '🇮🇳', FR: '🇫🇷', BR: '🇧🇷', GB: '🇬🇧', AE: '🇦🇪' };
 
 export default function NodeRegistry() {
@@ -76,7 +76,7 @@ export default function NodeRegistry() {
                   >
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ fontSize: '1.2rem' }}>{COUNTRY_FLAGS[node.country_code] || '🏥'}</span>
+                        <span style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center' }}>{COUNTRY_FLAGS[node.country_code] || <Building2 size={20} />}</span>
                         <div>
                           <div style={{ fontWeight: 600 }}>{node.name}</div>
                           <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{node.id}</div>
@@ -97,8 +97,8 @@ export default function NodeRegistry() {
                       }
                     </td>
                     <td>
-                      <span className="badge badge-muted">
-                        🔒 {node.national_registry_id ? 'National registry' : 'Encrypted shares only'}
+                      <span className="badge badge-muted" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                        <Lock size={12} /> {node.national_registry_id ? 'National registry' : 'Encrypted shares only'}
                       </span>
                     </td>
                   </motion.tr>

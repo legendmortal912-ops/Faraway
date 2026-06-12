@@ -1,16 +1,17 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
 import { motion } from 'framer-motion';
+import { BarChart, Globe, Plus, Search, Truck, Building2, Shield, ScrollText, Landmark, Settings } from 'lucide-react';
 
 const NAV = [
-  { to: '/hospital/dashboard', icon: '📊', label: 'Overview' },
-  { to: '/hospital/network-donors', icon: '🌐', label: 'Network Donors', coordinatorOnly: true },
-  { to: '/hospital/register-donor', icon: '➕', label: 'Register Donor', hideForCoordinator: true },
-  { to: '/hospital/waitlist', icon: '🔍', label: 'Waitlist & Matching', hideForCoordinator: true },
-  { to: '/hospital/shipments', icon: '🚚', label: 'Active Shipments' },
-  { to: '/hospital/fleet', icon: '🏥', label: 'Fleet Manager', fleetOnly: true },
-  { to: '/hospital/crypto-logs', icon: '🛡️', label: 'Crypto Logs' },
-  { to: '/hospital/history', icon: '📜', label: 'History' },
+  { to: '/hospital/dashboard', icon: <BarChart size={16} />, label: 'Overview' },
+  { to: '/hospital/network-donors', icon: <Globe size={16} />, label: 'Network Donors', coordinatorOnly: true },
+  { to: '/hospital/register-donor', icon: <Plus size={16} />, label: 'Register Donor', hideForCoordinator: true },
+  { to: '/hospital/waitlist', icon: <Search size={16} />, label: 'Waitlist & Matching', hideForCoordinator: true },
+  { to: '/hospital/shipments', icon: <Truck size={16} />, label: 'Active Shipments' },
+  { to: '/hospital/fleet', icon: <Building2 size={16} />, label: 'Fleet Manager', fleetOnly: true },
+  { to: '/hospital/crypto-logs', icon: <Shield size={16} />, label: 'Crypto Logs' },
+  { to: '/hospital/history', icon: <ScrollText size={16} />, label: 'History' },
 ];
 
 export default function HospitalLayout() {
@@ -38,7 +39,7 @@ export default function HospitalLayout() {
         {/* Navigation */}
         <nav style={{ flex: 1, padding: '12px 10px', overflowY: 'auto' }}>
           {user?.is_coordinator && (
-            <div style={{ margin: '4px 12px 10px', padding: '6px 10px', background: 'rgba(0,212,170,0.08)', border: '1px solid rgba(0,212,170,0.2)', borderRadius: 8, fontSize: '0.68rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>🏛️ NOTTO Coordinator</div>
+            <div style={{ margin: '4px 12px 10px', padding: '6px 10px', background: 'rgba(0,212,170,0.08)', border: '1px solid rgba(0,212,170,0.2)', borderRadius: 8, fontSize: '0.68rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}><Landmark size={14} /> NOTTO Coordinator</div>
           )}
           {NAV.filter(n => {
             if (n.fleetOnly && !user?.has_internal_fleet) return false;
@@ -62,7 +63,7 @@ export default function HospitalLayout() {
         {/* Settings & Logout */}
         <div style={{ padding: '12px 10px', borderTop: '1px solid var(--border)' }}>
           <NavLink to="/hospital/settings" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: 4 }}>
-            <span>⚙️</span><span>Settings</span>
+            <span><Settings size={16} /></span><span>Settings</span>
           </NavLink>
           <button onClick={handleLogout}
             style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, width: '100%', background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', fontSize: '0.85rem' }}>

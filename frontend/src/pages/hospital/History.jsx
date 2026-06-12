@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { ClipboardList, CheckCircle2, Timer, Globe2, FileText, BarChart } from 'lucide-react';
 
 const OUTCOME_COLOR = { Delivered: 'var(--success)', Failed: 'var(--danger)', Rerouted: 'var(--warning)' };
 const TIER_COLOR = { DOMESTIC: 'var(--accent)', CROSS_BORDER: 'var(--accent-light)' };
@@ -35,10 +36,10 @@ export default function History() {
         {/* Summary Stats */}
         <div className="grid-4" style={{ marginBottom: 24 }}>
           {[
-            { label: 'Total Cases', value: total, icon: '📋', color: 'var(--accent)' },
-            { label: 'Success Rate', value: `${successRate}%`, icon: '✅', color: 'var(--success)' },
-            { label: 'Avg Transit Time', value: avgTransit, icon: '⏱️', color: 'var(--warning)' },
-            { label: 'Cross-Border', value: crossBorder, icon: '🌍', color: 'var(--accent-light)' },
+            { label: 'Total Cases', value: total, icon: <ClipboardList size={24} />, color: 'var(--accent)' },
+            { label: 'Success Rate', value: `${successRate}%`, icon: <CheckCircle2 size={24} />, color: 'var(--success)' },
+            { label: 'Avg Transit Time', value: avgTransit, icon: <Timer size={24} />, color: 'var(--warning)' },
+            { label: 'Cross-Border', value: crossBorder, icon: <Globe2 size={24} />, color: 'var(--accent-light)' },
           ].map((s, i) => (
             <motion.div key={s.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
               className="glass" style={{ padding: 20, textAlign: 'center' }}>
@@ -123,8 +124,8 @@ export default function History() {
                             </div>
                             <div>
                               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 8 }}>Export</div>
-                              <button className="btn btn-outline" style={{ width: '100%', marginBottom: 8, fontSize: '0.8rem' }}>📄 Export Case PDF</button>
-                              <button className="btn btn-ghost" style={{ width: '100%', fontSize: '0.8rem' }}>📊 Export CSV</button>
+                              <button className="btn btn-outline" style={{ width: '100%', marginBottom: 8, fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}><FileText size={14} /> Export Case PDF</button>
+                              <button className="btn btn-ghost" style={{ width: '100%', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}><BarChart size={14} /> Export CSV</button>
                             </div>
                           </div>
                         </motion.div>

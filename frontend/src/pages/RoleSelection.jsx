@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Building2, Plane } from 'lucide-react';
 
 export default function RoleSelection() {
   const navigate = useNavigate();
@@ -16,13 +17,13 @@ export default function RoleSelection() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
           {[
             {
-              icon: '🏥', title: 'Hospital / Transplant Center',
+              icon: <Building2 size={48} />, title: 'Hospital / Transplant Center',
               desc: 'Register donors, manage your patient waitlist, coordinate organ matching, and track incoming shipments.',
               login: '/login/hospital', signup: '/signup/hospital',
               color: 'var(--accent)', badge: 'Medical Institution',
             },
             {
-              icon: '✈️', title: 'Logistics / Courier Company',
+              icon: <Plane size={48} />, title: 'Logistics / Courier Company',
               desc: 'Manage your fleet, track active organ shipments, monitor cold chain integrity, and handle emergency rerouting.',
               login: '/login/logistics', signup: '/signup/logistics',
               color: 'var(--accent-light)', badge: 'Carrier / Fleet',

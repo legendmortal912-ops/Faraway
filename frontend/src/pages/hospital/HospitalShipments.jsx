@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, ReferenceLine, CartesianGrid } from 'recharts';
+import { AlertTriangle, Snowflake, Package } from 'lucide-react';
 
 export default function HospitalShipments() {
   const { localRuns, localBoxes, telemetryHistory, activeAlerts, alarmActive } = useLifeMeshStore();
@@ -16,7 +17,7 @@ export default function HospitalShipments() {
         {alarmActive && (
           <motion.div initial={{ y: -40 }} animate={{ y: 0 }}
             style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.4)', borderRadius: 10, padding: '12px 20px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: '1.2rem', animation: 'pulse 1s infinite' }}>🚨</span>
+            <span style={{ animation: 'pulse 1s infinite', display: 'flex' }}><AlertTriangle size={24} color="#f87171" /></span>
             <div style={{ flex: 1 }}>
               <span style={{ color: '#f87171', fontWeight: 700 }}>CRITICAL COLD CHAIN ALERT</span>
               <span style={{ color: 'var(--text-muted)', marginLeft: 12, fontSize: '0.85rem' }}>Temperature threshold breached — check telemetry below</span>
@@ -46,9 +47,9 @@ export default function HospitalShipments() {
                   <span style={{ fontSize: '0.68rem', padding: '2px 8px', borderRadius: 100, background: run.status === 'ACTIVE' ? 'rgba(0,212,170,0.1)' : 'var(--bg-elevated)', color: run.status === 'ACTIVE' ? 'var(--accent)' : 'var(--text-muted)', border: '1px solid var(--border)' }}>{run.status}</span>
                 </div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: 6 }}>{run.from_city} → {run.to_city}</div>
-                <div style={{ display: 'flex', gap: 6 }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>🧊 {run.cold_chain_health}</span>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>📦 {run.boxes.length} box{run.boxes.length !== 1 ? 'es' : ''}</span>
+                <div style={{ display: 'flex', gap: 10 }}>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}><Snowflake size={12} /> {run.cold_chain_health}</span>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}><Package size={12} /> {run.boxes.length} box{run.boxes.length !== 1 ? 'es' : ''}</span>
                 </div>
               </motion.div>
             ))}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FileText, BarChart } from 'lucide-react';
 
 const DEMO_HISTORY = [
   { run_id: 'RUN-2039', date: '2026-06-09', route: 'Mumbai → Bangalore', organ: 'Liver', vehicle: 'AMB-MH-02', driver: 'Vikram S.', duration_actual: '3h 45m', duration_planned: '3h 20m', cold_incidents: 0, reroute_events: 0, status: 'COMPLETED', compliance: 'PASS' },
@@ -26,8 +27,8 @@ export default function AuditLogs() {
             <h1 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: 4 }}>Audit Logs</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Cold chain proof of custody for medical boards, IATA, and insurance.</p>
           </div>
-          <button className="btn btn-primary" style={{ background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)', fontSize: '0.85rem' }}>
-            📄 Export All Compliance Reports
+          <button className="btn btn-primary" style={{ background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <FileText size={16} /> Export All Compliance Reports
           </button>
         </div>
 
@@ -99,8 +100,8 @@ export default function AuditLogs() {
                             </div>
                             <div style={{ flexShrink: 0 }}>
                               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 8 }}>Export</div>
-                              <button className="btn btn-outline" style={{ width: 180, marginBottom: 8, fontSize: '0.8rem', borderColor: 'var(--accent-light)', color: 'var(--accent-light)' }}>📄 PDF Compliance Report</button>
-                              <button className="btn btn-ghost" style={{ width: 180, fontSize: '0.8rem' }}>📊 Export CSV</button>
+                              <button className="btn btn-outline" style={{ width: 180, marginBottom: 8, fontSize: '0.8rem', borderColor: 'var(--accent-light)', color: 'var(--accent-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}><FileText size={14} /> PDF Compliance Report</button>
+                              <button className="btn btn-ghost" style={{ width: 180, fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}><BarChart size={14} /> Export CSV</button>
                             </div>
                           </div>
                         </motion.div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { CircleDot, CheckCircle2, Globe2, Building2, Dna, Lock, Loader2 } from 'lucide-react';
 
 const STATUS_CONFIG = {
   AVAILABLE:    { color: 'var(--success)',      bg: 'rgba(34,197,94,0.1)',   label: 'Available' },
@@ -71,14 +72,14 @@ export default function NetworkDonors() {
         {/* KPIs */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16, marginBottom: 24 }}>
           {[
-            { icon: '🟢', label: 'Available Donors', value: available, color: 'var(--success)' },
-            { icon: '✅', label: 'Accepted Today', value: accepted, color: 'var(--accent)' },
-            { icon: '🌍', label: 'Cross-Border', value: crossBorder, color: 'var(--accent-light)' },
-            { icon: '🏥', label: 'Hospitals Contributing', value: [...new Set(networkDonors.map(d => d.hospital_id))].length, color: 'var(--info)' },
+            { icon: <CircleDot size={22} color="var(--success)" />, label: 'Available Donors', value: available, color: 'var(--success)' },
+            { icon: <CheckCircle2 size={22} color="var(--accent)" />, label: 'Accepted Today', value: accepted, color: 'var(--accent)' },
+            { icon: <Globe2 size={22} color="var(--accent-light)" />, label: 'Cross-Border', value: crossBorder, color: 'var(--accent-light)' },
+            { icon: <Building2 size={22} color="var(--info)" />, label: 'Hospitals Contributing', value: [...new Set(networkDonors.map(d => d.hospital_id))].length, color: 'var(--info)' },
           ].map((k, i) => (
             <motion.div key={k.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
               className="glass" style={{ padding: 20, display: 'flex', gap: 14, alignItems: 'center' }}>
-              <span style={{ fontSize: '1.5rem' }}>{k.icon}</span>
+              <span>{k.icon}</span>
               <div>
                 <div style={{ fontSize: '1.6rem', fontWeight: 900, color: k.color, lineHeight: 1 }}>{k.value}</div>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 2, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{k.label}</div>
@@ -115,7 +116,7 @@ export default function NetworkDonors() {
                   <div style={{ minWidth: 160 }}>
                     <code style={{ color: 'var(--accent)', fontSize: '0.85rem', fontWeight: 700 }}>{donor.donor_id}</code>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 2 }}>
-                      🏥 {donor.hospital_name}
+                      <Building2 size={12} style={{ display: 'inline', marginRight: 4, verticalAlign: 'middle' }} />{donor.hospital_name}
                     </div>
                     <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>{donor.city}</div>
                   </div>
@@ -159,7 +160,7 @@ export default function NetworkDonors() {
                     <div style={{ display: 'flex', gap: 8 }}>
                       <button onClick={e => { e.stopPropagation(); handleAccept(donor.donor_id); }} disabled={isAccepting}
                         className="btn btn-primary" style={{ fontSize: '0.75rem', padding: '7px 14px', minWidth: 80 }}>
-                        {isAccepting ? '⏳...' : '✓ Accept'}
+                        {isAccepting ? <><Loader2 size={13} style={{ animation: 'spin 1s linear infinite' }} /> Processing</> : '✓ Accept'}
                       </button>
                       <button onClick={e => { e.stopPropagation(); declineDonor(donor.donor_id); }}
                         className="btn btn-ghost" style={{ fontSize: '0.75rem', padding: '7px 12px', color: 'var(--text-muted)' }}>
@@ -168,7 +169,7 @@ export default function NetworkDonors() {
                     </div>
                   )}
                   {donor.status === 'ACCEPTED' && (
-                    <span style={{ fontSize: '0.75rem', color: 'var(--success)', fontWeight: 700 }}>✅ Matched</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--success)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}><CheckCircle2 size={14} /> Matched</span>
                   )}
                   {donor.status === 'DECLINED' && (
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Declined</span>
@@ -185,7 +186,7 @@ export default function NetworkDonors() {
                       <div style={{ padding: '16px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20 }}>
                         {/* HLA Data */}
                         <div>
-                          <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>🧬 HLA Markers (Encrypted)</div>
+                          <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}><Dna size={12} /> HLA Markers (Encrypted)</div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
                             {['A1','A2','B1','B2','DR1','DR2'].map((k, idx) => {
                               const val = [donor.hla_a1,donor.hla_a2,donor.hla_b1,donor.hla_b2,donor.hla_dr1,donor.hla_dr2][idx];
@@ -213,7 +214,7 @@ export default function NetworkDonors() {
                         <div>
                           <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>Privacy Status</div>
                           <div style={{ padding: '12px 14px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, marginBottom: 10 }}>
-                            <div style={{ fontSize: '0.75rem', color: '#f87171', fontWeight: 700, marginBottom: 4 }}>🔒 PII Locked</div>
+                            <div style={{ fontSize: '0.75rem', color: '#f87171', fontWeight: 700, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}><Lock size={13} /> PII Locked</div>
                             <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>Patient name, age, ID are stored exclusively in {donor.hospital_name}'s local database. This view has zero access.</div>
                           </div>
                           <div style={{ padding: '12px 14px', background: 'rgba(0,212,170,0.05)', border: '1px solid rgba(0,212,170,0.15)', borderRadius: 8 }}>

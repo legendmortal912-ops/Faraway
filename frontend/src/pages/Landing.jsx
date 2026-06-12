@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { Zap, LockKeyhole, RadioTower, Lock, Map, RefreshCw, Thermometer, Building2, Plane } from 'lucide-react';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -54,16 +55,16 @@ export default function Landing() {
   ];
 
   const layers = [
-    { icon: '⚡', title: 'Layer 0 — Domestic Fast Match', desc: 'Same-country, direct routing via national registry. Match in under 60 seconds.' },
-    { icon: '🔐', title: 'Layer 1 — Cross-Border SMPC', desc: 'Encrypted global matching using Shamir\'s Secret Sharing. Zero data exposure across borders.' },
-    { icon: '📡', title: 'Layer 2 — Cold Chain Hardware', desc: 'IoT monitoring via Arduino + Raspberry Pi. Real-time temperature, shock, and seal alerts.' },
+    { icon: <Zap size={32} color="var(--accent)" />, title: 'Layer 0 — Domestic Fast Match', desc: 'Same-country, direct routing via national registry. Match in under 60 seconds.' },
+    { icon: <LockKeyhole size={32} color="var(--accent)" />, title: 'Layer 1 — Cross-Border SMPC', desc: 'Encrypted global matching using Shamir\'s Secret Sharing. Zero data exposure across borders.' },
+    { icon: <RadioTower size={32} color="var(--accent)" />, title: 'Layer 2 — Cold Chain Hardware', desc: 'IoT monitoring via Arduino + Raspberry Pi. Real-time temperature, shock, and seal alerts.' },
   ];
 
   const techCards = [
-    { icon: '🔒', title: 'SMPC', desc: 'Shamir\'s Secret Sharing splits patient data into encrypted shares — only partial data exists at any one node.' },
-    { icon: '🗺️', title: 'Time-Dependent Routing', desc: 'Route optimization accounts for organ viability windows — not just distance.' },
-    { icon: '🔄', title: 'Adaptive Rerouting', desc: 'PBFT consensus detects flight delays and automatically recalculates routes to prevent organ loss.' },
-    { icon: '🌡️', title: 'IoT Cold Chain', desc: 'Physical Arduino Nano BLE devices stream temperature readings every second to prevent cold chain breaks.' },
+    { icon: <Lock size={28} color="var(--accent)" />, title: 'SMPC', desc: 'Shamir\'s Secret Sharing splits patient data into encrypted shares — only partial data exists at any one node.' },
+    { icon: <Map size={28} color="var(--accent)" />, title: 'Time-Dependent Routing', desc: 'Route optimization accounts for organ viability windows — not just distance.' },
+    { icon: <RefreshCw size={28} color="var(--accent)" />, title: 'Adaptive Rerouting', desc: 'PBFT consensus detects flight delays and automatically recalculates routes to prevent organ loss.' },
+    { icon: <Thermometer size={28} color="var(--accent)" />, title: 'IoT Cold Chain', desc: 'Physical Arduino Nano BLE devices stream temperature readings every second to prevent cold chain breaks.' },
   ];
 
   return (
@@ -90,10 +91,10 @@ export default function Landing() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
             style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             <button onClick={() => navigate('/login/hospital')} className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700 }}>
-              🏥 Hospital Login →
+              <Building2 size={18} /> Hospital Login
             </button>
             <button onClick={() => navigate('/login/logistics')} className="btn btn-outline" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700 }}>
-              ✈️ Logistics Login →
+              <Plane size={18} /> Logistics Login
             </button>
           </motion.div>
         </div>
@@ -120,7 +121,7 @@ export default function Landing() {
           {layers.map((l, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
               className="glass glass-hover" style={{ padding: 28 }}>
-              <div style={{ fontSize: '2rem', marginBottom: 12 }}>{l.icon}</div>
+              <div style={{ marginBottom: 12 }}>{l.icon}</div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 8, color: 'var(--accent)' }}>{l.title}</h3>
               <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{l.desc}</p>
             </motion.div>
@@ -131,7 +132,7 @@ export default function Landing() {
       {/* Privacy Guarantee */}
       <section style={{ padding: '60px 24px', background: 'linear-gradient(135deg, rgba(0,212,170,0.04), rgba(167,139,250,0.04))', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: '3rem', marginBottom: 16 }}>🔒</div>
+          <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}><Lock size={48} color="var(--accent)" /></div>
           <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: 16 }}>Privacy Guaranteed by Mathematics</h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
             Patient PII is locked in your hospital's local database. Biological markers are shredded into encrypted Shamir Shares before leaving your network.
@@ -149,7 +150,7 @@ export default function Landing() {
           {techCards.map((t, i) => (
             <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
               className="glass glass-hover" style={{ padding: 24 }}>
-              <div style={{ fontSize: '1.8rem', marginBottom: 10 }}>{t.icon}</div>
+              <div style={{ marginBottom: 10 }}>{t.icon}</div>
               <h4 style={{ fontWeight: 700, marginBottom: 8 }}>{t.title}</h4>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.7 }}>{t.desc}</p>
             </motion.div>

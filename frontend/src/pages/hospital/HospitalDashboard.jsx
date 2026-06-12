@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Package, Truck, Users, Globe, HeartPulse, Activity, Heart, Wind, Plus, Search } from 'lucide-react';
 
 function KPICard({ icon, label, value, sub, color = 'var(--accent)', delay = 0 }) {
   const [display, setDisplay] = useState(0);
@@ -27,10 +28,10 @@ function KPICard({ icon, label, value, sub, color = 'var(--accent)', delay = 0 }
 }
 
 const ORGAN_BREAKDOWN = [
-  { organ: 'Kidney', waiting: 3, available: 2, icon: '🫀', color: '#f59e0b' },
-  { organ: 'Liver', waiting: 1, available: 0, icon: '🫁', color: '#ef4444' },
-  { organ: 'Heart', waiting: 1, available: 1, icon: '❤️', color: '#ec4899' },
-  { organ: 'Lung', waiting: 0, available: 1, icon: '💨', color: '#3b82f6' },
+  { organ: 'Kidney', waiting: 3, available: 2, icon: <HeartPulse size={22} color="#f59e0b" />, color: '#f59e0b' },
+  { organ: 'Liver', waiting: 1, available: 0, icon: <Activity size={22} color="#ef4444" />, color: '#ef4444' },
+  { organ: 'Heart', waiting: 1, available: 1, icon: <Heart size={22} color="#ec4899" />, color: '#ec4899' },
+  { organ: 'Lung', waiting: 0, available: 1, icon: <Wind size={22} color="#3b82f6" />, color: '#3b82f6' },
 ];
 
 export default function HospitalDashboard() {
@@ -51,20 +52,20 @@ export default function HospitalDashboard() {
         </div>
         <div style={{ display: 'flex', gap: 12 }}>
           <button onClick={() => navigate('/hospital/register-donor')} className="btn btn-primary" style={{ fontSize: '0.85rem' }}>
-            ➕ Register Donor
+            <Plus size={15} /> Register Donor
           </button>
           <button onClick={() => navigate('/hospital/waitlist')} className="btn btn-outline" style={{ fontSize: '0.85rem' }}>
-            🔍 Find Match
+            <Search size={15} /> Find Match
           </button>
         </div>
       </motion.div>
 
       {/* KPI Row 1 */}
       <div className="grid-4" style={{ marginBottom: 20 }}>
-        <KPICard icon="📦" label="Active Incoming Shipments" value={String(incoming)} color="var(--accent)" delay={0.05} />
-        <KPICard icon="🚚" label="Active Outgoing Shipments" value={String(outgoing)} color="var(--warning)" delay={0.1} />
-        <KPICard icon="👥" label="Patients on Waitlist" value={String(localPatients.length)} color="var(--danger)" delay={0.15} />
-        <KPICard icon="🌐" label="Network Nodes Online" value={String(hospitals.length)} sub="globally" color="var(--info)" delay={0.2} />
+        <KPICard icon={<Package size={26} color="var(--accent)" />} label="Active Incoming Shipments" value={String(incoming)} color="var(--accent)" delay={0.05} />
+        <KPICard icon={<Truck size={26} color="var(--warning)" />} label="Active Outgoing Shipments" value={String(outgoing)} color="var(--warning)" delay={0.1} />
+        <KPICard icon={<Users size={26} color="var(--danger)" />} label="Patients on Waitlist" value={String(localPatients.length)} color="var(--danger)" delay={0.15} />
+        <KPICard icon={<Globe size={26} color="var(--info)" />} label="Network Nodes Online" value={String(hospitals.length)} sub="globally" color="var(--info)" delay={0.2} />
       </div>
 
       {/* Row 2 — organ breakdown */}
@@ -72,7 +73,7 @@ export default function HospitalDashboard() {
         {ORGAN_BREAKDOWN.map((o, i) => (
           <motion.div key={o.organ} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.25 + i * 0.05 }}
             className="glass" style={{ padding: 18 }}>
-            <div style={{ fontSize: '1.4rem', marginBottom: 8 }}>{o.icon}</div>
+            <div style={{ marginBottom: 8 }}>{o.icon}</div>
             <div style={{ fontWeight: 700, marginBottom: 10, fontSize: '0.95rem' }}>{o.organ}</div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem' }}>
               <span style={{ color: 'var(--text-muted)' }}>Waiting</span>

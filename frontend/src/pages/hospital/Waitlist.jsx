@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Plus, Lock, Dna, Target, CheckCircle2 } from 'lucide-react';
 
 const URGENCY = [
   { label: 'Routine', value: 0.25, color: '#3b82f6' },
@@ -38,7 +39,9 @@ export default function Waitlist() {
             <h1 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: 4 }}>Waitlist & Matching</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Patient PII stored locally only. HLA markers are SMPC-encrypted before network matching.</p>
           </div>
-          <button onClick={() => setShowForm(s => !s)} className="btn btn-primary">➕ Add Patient</button>
+          <button onClick={() => setShowForm(s => !s)} className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <Plus size={16} /> Add Patient
+          </button>
         </div>
 
         {/* Tabs */}
@@ -59,7 +62,7 @@ export default function Waitlist() {
               <h3 style={{ fontWeight: 700, marginBottom: 16 }}>Register New Patient</h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--danger)', textTransform: 'uppercase', marginBottom: 4 }}>🔒 PII — Local Only</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--danger)', textTransform: 'uppercase', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}><Lock size={12} /> PII — Local Only</div>
                   <Field label="Full Name" value={form.full_name} onChange={v => set('full_name', v)} />
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <Field label="Date of Birth" value={form.dob} onChange={v => set('dob', v)} type="date" />
@@ -68,7 +71,7 @@ export default function Waitlist() {
                   <Field label="Attending Surgeon" value={form.attending_surgeon} onChange={v => set('attending_surgeon', v)} />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>🧬 Biological — SMPC Encrypted</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}><Dna size={12} /> Biological — SMPC Encrypted</div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <Select label="Blood Type" value={form.blood_type} onChange={v => set('blood_type', v)} options={['A+','A-','B+','B-','AB+','AB-','O+','O-']} />
                     <Select label="Organ Needed" value={form.organ_needed} onChange={v => set('organ_needed', v)} options={['Kidney','Liver','Heart','Lung','Pancreas']} />
@@ -174,7 +177,7 @@ function MatchResolution() {
           className="glass" style={{ padding: 24, border: '1px solid rgba(0,212,170,0.4)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
             <div>
-              <div style={{ fontSize: '0.72rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>🎯 Match Found</div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}><Target size={12} /> Match Found</div>
               <h3 style={{ fontWeight: 800, fontSize: '1.3rem' }}>{matchResult.compatibility_score?.toFixed(1) || '94.3'}% Compatibility</h3>
             </div>
             <span style={{ padding: '4px 12px', borderRadius: 100, background: matchResult.match_tier === 'DOMESTIC' ? 'rgba(0,212,170,0.1)' : 'rgba(167,139,250,0.1)', color: matchResult.match_tier === 'DOMESTIC' ? 'var(--accent)' : 'var(--accent-light)', fontSize: '0.75rem', fontWeight: 700, border: `1px solid ${matchResult.match_tier === 'DOMESTIC' ? 'rgba(0,212,170,0.3)' : 'rgba(167,139,250,0.3)'}` }}>
@@ -194,7 +197,7 @@ function MatchResolution() {
       )}
       {accepted && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="glass" style={{ padding: 20, border: '1px solid rgba(0,212,170,0.3)' }}>
-          <div style={{ color: 'var(--success)', fontWeight: 700, marginBottom: 8 }}>✅ Match Accepted — Carrier allocation in progress...</div>
+          <div style={{ color: 'var(--success)', fontWeight: 700, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}><CheckCircle2 size={16} /> Match Accepted — Carrier allocation in progress...</div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Check Active Shipments for live tracking once a carrier is assigned.</div>
         </motion.div>
       )}

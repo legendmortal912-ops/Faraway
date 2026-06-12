@@ -1,12 +1,13 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
 import { motion } from 'framer-motion';
+import { Package, MapPin, RefreshCw, ClipboardList } from 'lucide-react';
 
 const NAV = [
-  { to: '/logistics/dashboard', icon: '📦', label: 'Fleet Command' },
-  { to: '/logistics/tracking', icon: '📍', label: 'Live Tracking' },
-  { to: '/logistics/rerouting', icon: '🔄', label: 'Emergency Rerouting' },
-  { to: '/logistics/audit', icon: '📋', label: 'Audit Logs' },
+  { to: '/logistics/dashboard', icon: <Package size={16} />, label: 'Fleet Command' },
+  { to: '/logistics/tracking', icon: <MapPin size={16} />, label: 'Live Tracking' },
+  { to: '/logistics/rerouting', icon: <RefreshCw size={16} />, label: 'Emergency Rerouting' },
+  { to: '/logistics/audit', icon: <ClipboardList size={16} />, label: 'Audit Logs' },
 ];
 
 export default function LogisticsLayout() {

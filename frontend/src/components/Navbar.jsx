@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
-import { Activity, LayoutDashboard, Plus, Cpu, Map, Database } from 'lucide-react';
+import { Activity, LayoutDashboard, Plus, Cpu, Map, Database, AlertTriangle } from 'lucide-react';
 
 const NAV = [
   { to: '/dashboard',   icon: LayoutDashboard, label: 'Overview' },
@@ -58,8 +58,8 @@ export default function Navbar() {
         {/* Status indicators */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           {alarmActive && (
-            <div className="badge badge-danger" style={{ animation: 'alert-flash 1s infinite' }}>
-              ⚠️ Cold Chain Alert
+            <div className="badge badge-danger" style={{ animation: 'alert-flash 1s infinite', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <AlertTriangle size={14} /> Cold Chain Alert
             </div>
           )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.8rem', color: 'var(--text-secondary)' }}>

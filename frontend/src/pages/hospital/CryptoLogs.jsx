@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Loader2, Play } from 'lucide-react';
 
 const LOG_COLORS = {
   SMPC_INIT: 'var(--accent)',
@@ -76,8 +77,8 @@ export default function CryptoLogs() {
             <h1 style={{ fontSize: '1.8rem', fontWeight: 900, marginBottom: 4 }}>Network Logs</h1>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Real-time proof of SMPC computation. Every PII access attempt is logged and denied.</p>
           </div>
-          <button onClick={simulateLive} disabled={running} className="btn btn-primary" style={{ fontSize: '0.85rem' }}>
-            {running ? '⏳ Computing...' : '▶ Simulate SMPC Run'}
+          <button onClick={simulateLive} disabled={running} className="btn btn-primary" style={{ fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+            {running ? <><Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> Computing...</> : <><Play size={14} /> Simulate SMPC Run</>}
           </button>
         </div>
 

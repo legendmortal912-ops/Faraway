@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { AlertTriangle, HeartPulse, RefreshCw, Timer } from 'lucide-react';
 
 const DEMO_RUNS = [
   { run_id: 'RUN-2041', from: 'Delhi', to: 'Mumbai', organ: 'Kidney', viability_left: '4h 12m', eta_original: '22:00', status: 'ACTIVE', alert: false },
@@ -29,7 +30,7 @@ export default function EmergencyRerouting() {
       old_route: [`${selected.from}`, 'Airport', 'Flight AI-142', `${selected.to}`],
       new_route: feasible
         ? [`${selected.from}`, 'Alternate Airport', 'Flight AI-199 (+${delay}m)', `${selected.to}`]
-        : [`${selected.from}`, '⚠️ Nearest Hospital: Kokilaben KDAH'],
+        : [`${selected.from}`, <div style={{display: 'inline-flex', alignItems: 'center', gap: 4}}><AlertTriangle size={14} /> Nearest Hospital: Kokilaben KDAH</div>],
       old_eta: selected.eta_original,
       new_eta: feasible ? '01:15 (next day)' : 'EMERGENCY PROTOCOL',
     });
@@ -55,12 +56,12 @@ export default function EmergencyRerouting() {
                   className="glass" style={{ padding: 16, cursor: 'pointer', borderColor: selected?.run_id === r.run_id ? 'var(--accent-light)' : r.alert ? 'rgba(239,68,68,0.4)' : 'var(--border)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                     <code style={{ color: 'var(--accent-light)', fontSize: '0.82rem' }}>{r.run_id}</code>
-                    {r.alert && <span style={{ fontSize: '0.68rem', color: 'var(--danger)', fontWeight: 700 }}>⚠️ AT RISK</span>}
+                    {r.alert && <span style={{ fontSize: '0.68rem', color: 'var(--danger)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}><AlertTriangle size={12} /> AT RISK</span>}
                   </div>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: 4 }}>{r.from} → {r.to}</div>
-                  <div style={{ fontSize: '0.75rem' }}>
-                    <span style={{ color: 'var(--text-muted)' }}>🫀 {r.organ} · </span>
-                    <span style={{ color: r.alert ? 'var(--danger)' : 'var(--warning)', fontWeight: 600 }}>⏱️ {r.viability_left} left</span>
+                  <div style={{ fontSize: '0.75rem', display: 'flex', gap: 4, alignItems: 'center' }}>
+                    <span style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 4 }}><HeartPulse size={12} /> {r.organ} · </span>
+                    <span style={{ color: r.alert ? 'var(--danger)' : 'var(--warning)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}><Timer size={12} /> {r.viability_left} left</span>
                   </div>
                 </motion.div>
               ))}
@@ -91,8 +92,8 @@ export default function EmergencyRerouting() {
                       <span>15 min</span><span>5 hours</span>
                     </div>
                   </div>
-                  <button onClick={handleReroute} disabled={loading} className="btn btn-primary" style={{ background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)' }}>
-                    {loading ? '🔄 Computing new route...' : '🔄 Trigger Reroute Request'}
+                  <button onClick={handleReroute} disabled={loading} className="btn btn-primary" style={{ background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                    {loading ? <><RefreshCw size={16} /> Computing new route...</> : <><RefreshCw size={16} /> Trigger Reroute Request</>}
                   </button>
                 </div>
               </div>
@@ -102,8 +103,8 @@ export default function EmergencyRerouting() {
             {result && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                 className="glass" style={{ padding: 24, border: `1px solid ${result.feasible ? 'rgba(0,212,170,0.3)' : 'rgba(239,68,68,0.4)'}` }}>
-                <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12, color: result.feasible ? 'var(--success)' : 'var(--danger)', fontWeight: 700 }}>
-                  {result.feasible ? '✓ FEASIBLE — New Route Found' : '🚨 INFEASIBLE — Emergency Protocol Activated'}
+                <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12, color: result.feasible ? 'var(--success)' : 'var(--danger)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {result.feasible ? '✓ FEASIBLE — New Route Found' : <><AlertTriangle size={14} /> INFEASIBLE — Emergency Protocol Activated</>}
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                   {['Old Route', 'New Route'].map((label, idx) => (

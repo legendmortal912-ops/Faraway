@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
+import { Plane, RadioTower } from 'lucide-react';
 
 const FLEET_TYPES = ['Ground Ambulance', 'Air Charter', 'Commercial Air', 'Ground Courier'];
 const REGIONS = ['India', 'Europe', 'North America', 'Southeast Asia', 'Middle East', 'Global'];
@@ -48,7 +49,7 @@ export default function LogisticsAuth({ mode }) {
       {/* Left panel */}
       <div style={{ width: '42%', background: 'linear-gradient(145deg, rgba(167,139,250,0.08), rgba(167,139,250,0.02))', borderRight: '1px solid var(--border)', padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ marginBottom: 40 }}>
-          <div style={{ fontSize: '2rem', marginBottom: 12 }}>✈️</div>
+          <div style={{ marginBottom: 12, display: 'flex' }}><Plane size={36} color="var(--accent-light)" /></div>
           <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 12 }}>Logistics Portal</h1>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '0.9rem' }}>
             For medical courier companies and hospital-owned fleets. Manage your vehicles, track shipments, and ensure cold chain compliance — without ever seeing patient data.
@@ -62,7 +63,7 @@ export default function LogisticsAuth({ mode }) {
           ))}
         </div>
         <div style={{ marginTop: 40, padding: 16, background: 'rgba(167,139,250,0.06)', borderRadius: 10, border: '1px solid rgba(167,139,250,0.15)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-          <strong style={{ color: 'var(--accent-light)', display: 'block', marginBottom: 8 }}>✈️ Demo Accounts</strong>
+          <strong style={{ color: 'var(--accent-light)', display: 'block', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}><Plane size={14} /> Demo Accounts</strong>
           {[
             ['DHL Medical Express', 'ops@dhl-medical.com', 'dhl123'],
             ['World Courier Medical', 'ops@worldcourier.com', 'world123'],
@@ -183,9 +184,9 @@ export default function LogisticsAuth({ mode }) {
                     <Field label="Number of Ground Vehicles" value={form.num_ground} onChange={v => set('num_ground', v)} placeholder="12" />
                     <Field label="Number of Air-Capable Routes" value={form.num_air_routes} onChange={v => set('num_air_routes', v)} placeholder="4" />
                     <Field label="Number of IoT-Enabled Containers" value={form.num_iot_boxes} onChange={v => set('num_iot_boxes', v)} placeholder="24" />
-                    <div style={{ padding: 12, background: 'rgba(167,139,250,0.05)', border: '1px solid rgba(167,139,250,0.15)', borderRadius: 8, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                      📡 You will register each container's hardware MAC address individually in your Fleet Dashboard after login.
-                    </div>
+                    <p style={{ marginTop: 8, fontSize: '0.78rem', color: 'var(--text-muted)', background: 'rgba(167,139,250,0.05)', padding: '8px 12px', borderRadius: 6, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                      <RadioTower size={14} style={{ flexShrink: 0, marginTop: 2, color: 'var(--accent-light)' }} /> You will register each container's hardware MAC address individually in your Fleet Dashboard after login.
+                    </p>
                   </div>
                 )}
                 {step === 4 && (
@@ -204,8 +205,8 @@ export default function LogisticsAuth({ mode }) {
                   {step > 1 && <button onClick={() => setStep(s => s - 1)} className="btn btn-outline" style={{ flex: 1 }}>← Back</button>}
                   {step < 4
                     ? <button onClick={() => setStep(s => s + 1)} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)' }}>Next →</button>
-                    : <button onClick={handleSignup} disabled={loading} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)' }}>
-                        {loading ? 'Registering Carrier...' : '✈️ Register Carrier Node'}
+                    : <button onClick={handleSignup} disabled={loading} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6 }}>
+                        {loading ? 'Registering Carrier...' : <><Plane size={16} /> Register Carrier Node</>}
                       </button>
                   }
                 </div>

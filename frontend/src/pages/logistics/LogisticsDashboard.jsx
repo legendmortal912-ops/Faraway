@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Plus, Package, Ambulance, Snowflake, AlertTriangle } from 'lucide-react';
 
 function KPI({ icon, label, value, color = 'var(--accent-light)', delay = 0 }) {
   const [d, setD] = useState(0);
@@ -55,17 +56,17 @@ export default function LogisticsDashboard() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Real-time status of your fleet and active organ shipments.</p>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>
-            <button onClick={() => setShowVForm(s => !s)} className="btn btn-outline" style={{ fontSize: '0.85rem', borderColor: 'var(--accent-light)', color: 'var(--accent-light)' }}>➕ Add Vehicle</button>
-            <button onClick={() => setShowBForm(s => !s)} className="btn btn-outline" style={{ fontSize: '0.85rem', borderColor: 'var(--accent-light)', color: 'var(--accent-light)' }}>📦 Register Box</button>
+            <button onClick={() => setShowVForm(s => !s)} className="btn btn-outline" style={{ fontSize: '0.85rem', borderColor: 'var(--accent-light)', color: 'var(--accent-light)', display: 'flex', alignItems: 'center', gap: 6 }}><Plus size={14} /> Add Vehicle</button>
+            <button onClick={() => setShowBForm(s => !s)} className="btn btn-outline" style={{ fontSize: '0.85rem', borderColor: 'var(--accent-light)', color: 'var(--accent-light)', display: 'flex', alignItems: 'center', gap: 6 }}><Package size={14} /> Register Box</button>
           </div>
         </div>
 
         {/* KPIs */}
         <div className="grid-4" style={{ marginBottom: 20 }}>
-          <KPI icon="🚑" label="Active Runs" value={String(DEMO_RUNS.filter(r => r.status === 'ACTIVE').length)} delay={0.05} />
-          <KPI icon="🧊" label="IoT Devices Online" value={String(localBoxes.length)} color="var(--info)" delay={0.1} />
-          <KPI icon="📦" label="Boxes in Transit" value={String(localBoxes.filter(b => b.status === 'TRANSIT').length)} color="var(--warning)" delay={0.15} />
-          <KPI icon="⚠️" label="Cold Chain Incidents Today" value={String(activeAlerts.length)} color={activeAlerts.length > 0 ? 'var(--danger)' : 'var(--success)'} delay={0.2} />
+          <KPI icon={<Ambulance size={28} />} label="Active Runs" value={String(DEMO_RUNS.filter(r => r.status === 'ACTIVE').length)} delay={0.05} />
+          <KPI icon={<Snowflake size={28} />} label="IoT Devices Online" value={String(localBoxes.length)} color="var(--info)" delay={0.1} />
+          <KPI icon={<Package size={28} />} label="Boxes in Transit" value={String(localBoxes.filter(b => b.status === 'TRANSIT').length)} color="var(--warning)" delay={0.15} />
+          <KPI icon={<AlertTriangle size={28} />} label="Cold Chain Incidents Today" value={String(activeAlerts.length)} color={activeAlerts.length > 0 ? 'var(--danger)' : 'var(--success)'} delay={0.2} />
         </div>
 
         {/* Inline forms */}

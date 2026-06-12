@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
-import {
   Activity, Globe, Shield, Zap, Clock, ChevronRight,
-  Cpu, Map, TrendingUp, AlertTriangle
+  Cpu, Map, TrendingUp, AlertTriangle, Ambulance, Thermometer
 } from 'lucide-react';
 
 const API = 'http://localhost:8000';
@@ -153,21 +152,21 @@ export default function Dashboard() {
           <p style={{ fontSize: '0.875rem', marginBottom: 20 }}>Trigger a simulation scenario directly from here.</p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <DemoButton
-              label="🚑 Domestic Match"
+              label={<><Ambulance size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> Domestic Match</>}
               desc="Layer 0 — Safdarjung → Fortis Noida"
               color="#10b981"
               endpoint="/api/simulate/domestic"
               onClick={() => navigate('/computation')}
             />
             <DemoButton
-              label="🌐 Global SMPC"
+              label={<><Globe size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> Global SMPC</>}
               desc="Layer 1 — Paris → Mumbai via SMPC"
               color="var(--accent)"
               endpoint="/api/simulate/global"
               onClick={() => navigate('/computation')}
             />
             <DemoButton
-              label="🌡️ Cold Chain"
+              label={<><Thermometer size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> Cold Chain</>}
               desc="Layer 2 — IoT sensor breach simulation"
               color="#a78bfa"
               endpoint="/api/simulate/cold-chain"

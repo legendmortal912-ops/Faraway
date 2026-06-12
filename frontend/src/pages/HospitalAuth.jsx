@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
+import { Building2 } from 'lucide-react';
 
 const ORGAN_TYPES = ['Kidney', 'Liver', 'Heart', 'Lung', 'Pancreas', 'Cornea'];
 const HOSPITAL_TYPES = ['Government', 'Private', 'Trust', 'University'];
@@ -55,7 +56,7 @@ export default function HospitalAuth({ mode }) {
       {/* Left panel */}
       <div style={{ width: '42%', background: 'linear-gradient(145deg, rgba(0,212,170,0.08), rgba(0,212,170,0.02))', borderRight: '1px solid var(--border)', padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ marginBottom: 40 }}>
-          <div style={{ fontSize: '2rem', marginBottom: 12 }}>🏥</div>
+          <div style={{ marginBottom: 12, display: 'flex' }}><Building2 size={36} color="var(--accent)" /></div>
           <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 12 }}>Hospital Portal</h1>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '0.9rem' }}>
             Secure access for transplant coordinators and hospital administrators. Patient data stays local — only encrypted biological markers reach the network.
@@ -69,7 +70,7 @@ export default function HospitalAuth({ mode }) {
           ))}
         </div>
         <div style={{ marginTop: 40, padding: 16, background: 'rgba(0,212,170,0.06)', borderRadius: 10, border: '1px solid rgba(0,212,170,0.15)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-          <strong style={{ color: 'var(--accent)', display: 'block', marginBottom: 8 }}>🏥 Demo Accounts</strong>
+          <strong style={{ color: 'var(--accent)', display: 'block', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}><Building2 size={14} /> Demo Accounts</strong>
           {[
             ['AIIMS Delhi', 'admin@aiims.edu', 'aiims123'],
             ['Apollo Mumbai', 'admin@apollo.com', 'apollo123'],
@@ -210,8 +211,8 @@ export default function HospitalAuth({ mode }) {
                   {step > 1 && <button onClick={() => setStep(s => s - 1)} className="btn btn-outline" style={{ flex: 1 }}>← Back</button>}
                   {step < 4
                     ? <button onClick={() => setStep(s => s + 1)} className="btn btn-primary" style={{ flex: 1 }}>Next →</button>
-                    : <button onClick={handleSignup} disabled={loading} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent), #00a884)' }}>
-                        {loading ? 'Registering Node...' : '🏥 Register Hospital Node'}
+                    : <button onClick={handleSignup} disabled={loading} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent), #00a884)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6 }}>
+                        {loading ? 'Registering Node...' : <><Building2 size={16} /> Register Hospital Node</>}
                       </button>
                   }
                 </div>

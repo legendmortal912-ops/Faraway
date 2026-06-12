@@ -5,7 +5,7 @@ import {
   LineChart, Line, XAxis, YAxis, ResponsiveContainer,
   ReferenceLine, Tooltip, CartesianGrid
 } from 'recharts';
-import { AlertTriangle, Thermometer, Wind, Zap, Activity, RotateCcw, Globe } from 'lucide-react';
+import { AlertTriangle, Thermometer, Wind, Zap, Activity, RotateCcw, Globe, Plane, Ambulance } from 'lucide-react';
 
 const MAPBOX_TOKEN = 'YOUR_MAPBOX_TOKEN_HERE';
 
@@ -109,8 +109,8 @@ export default function Tracking() {
     // Hospital markers
     const mapboxgl = window.mapboxgl;
     const allPoints = [
-      { coords: [segs[0].from_location.lng, segs[0].from_location.lat], label: '🏥 Donor', color: '#ef4444' },
-      { coords: [segs[segs.length-1].to_location.lng, segs[segs.length-1].to_location.lat], label: '🏥 Recipient', color: '#00d4aa' },
+      { coords: [segs[0].from_location.lng, segs[0].from_location.lat], label: 'Donor', color: '#ef4444' },
+      { coords: [segs[segs.length-1].to_location.lng, segs[segs.length-1].to_location.lat], label: 'Recipient', color: '#00d4aa' },
     ];
 
     allPoints.forEach(pt => {
@@ -175,8 +175,9 @@ export default function Tracking() {
               className="btn btn-warning btn-sm"
               onClick={triggerReroute}
               disabled={triggeringReroute || !currentRoute}
+              style={{ display: 'flex', alignItems: 'center', gap: 6 }}
             >
-              {triggeringReroute ? '↻ Rerouting...' : '✈️ Simulate Flight Delay'}
+              {triggeringReroute ? <><RotateCcw size={14} /> Rerouting...</> : <><Plane size={14} /> Simulate Flight Delay</>}
             </button>
           </div>
         </div>
@@ -224,7 +225,7 @@ export default function Tracking() {
                     background: i === activeSegmentIndex ? 'var(--accent-dim)' : i < activeSegmentIndex ? 'var(--success-dim)' : 'transparent',
                     border: `1px solid ${i === activeSegmentIndex ? 'var(--accent)' : i < activeSegmentIndex ? 'var(--success)' : 'var(--border)'}`,
                   }}>
-                    <span>{seg.mode === 'air' ? '✈️' : '🚑'}</span>
+                    <span style={{ display: 'flex', alignItems: 'center' }}>{seg.mode === 'air' ? <Plane size={16} /> : <Ambulance size={16} />}</span>
                     <div style={{ flex: 1, overflow: 'hidden' }}>
                       <div style={{ fontSize: '0.78rem', fontWeight: 600, color: i <= activeSegmentIndex ? 'var(--text-primary)' : 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {seg.from} → {seg.to}

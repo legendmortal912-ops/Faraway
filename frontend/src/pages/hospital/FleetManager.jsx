@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Plus, Package, Ambulance, RadioTower } from 'lucide-react';
 
 const VEHICLE_TYPES = ['Ground Ambulance', 'Air Charter', 'Motorcycle Courier'];
 const VEHICLE_STATUSES = ['IDLE', 'EN_ROUTE_PICKUP', 'IN_TRANSIT', 'MAINTENANCE'];
@@ -27,14 +28,17 @@ export default function FleetManager() {
             <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Manage your hospital's transport vehicles and IoT-enabled organ containers.</p>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>
-            {tab === 'vehicles' && <button onClick={() => setShowVehicleForm(s => !s)} className="btn btn-primary">➕ Add Vehicle</button>}
-            {tab === 'boxes' && <button onClick={() => setShowBoxForm(s => !s)} className="btn btn-primary">➕ Register Box</button>}
+            {tab === 'vehicles' && <button onClick={() => setShowVehicleForm(s => !s)} className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Plus size={16} /> Add Vehicle</button>}
+            {tab === 'boxes' && <button onClick={() => setShowBoxForm(s => !s)} className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Plus size={16} /> Register Box</button>}
           </div>
         </div>
 
         {/* Tabs */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 20, background: 'var(--bg-elevated)', borderRadius: 10, padding: 4, width: 'fit-content' }}>
-          {[['vehicles', '🚑 Vehicles'], ['boxes', '📦 Container Boxes']].map(([t, l]) => (
+          {[
+            ['vehicles', <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Ambulance size={14} /> Vehicles</div>],
+            ['boxes', <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Package size={14} /> Container Boxes</div>]
+          ].map(([t, l]) => (
             <button key={t} onClick={() => setTab(t)}
               style={{ padding: '8px 20px', borderRadius: 7, border: 'none', background: tab === t ? 'var(--bg-card)' : 'transparent', color: tab === t ? 'var(--accent)' : 'var(--text-muted)', fontWeight: 600, cursor: 'pointer', fontSize: '0.85rem' }}>
               {l}
@@ -77,7 +81,7 @@ export default function FleetManager() {
                 <Select label="Organ Calibration Profile" value={bForm.organ_profile} onChange={v => sb('organ_profile', v)} options={['Kidney (2-8°C)', 'Liver (0-4°C)', 'Heart (0-4°C)', 'Lung (0-4°C)', 'Cornea (2-8°C)']} />
               </div>
               <div style={{ marginTop: 12, padding: 12, background: 'rgba(0,212,170,0.05)', border: '1px solid rgba(0,212,170,0.15)', borderRadius: 8, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                📡 This MAC address must match the device flashed with the LifeMesh firmware. The Raspberry Pi gateway will pair with this box over BLE automatically.
+                <RadioTower size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} /> This MAC address must match the device flashed with the LifeMesh firmware. The Raspberry Pi gateway will pair with this box over BLE automatically.
               </div>
               <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
                 <button onClick={() => { addBox({ ...bForm, assigned_vehicle: null, last_temp: null, last_updated: null, alert_count: 0 }); setShowBoxForm(false); }} className="btn btn-primary">Register Box</button>

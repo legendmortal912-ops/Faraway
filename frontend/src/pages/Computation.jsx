@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../store/useLifeMeshStore';
-import { CheckCircle, Circle, Loader, XCircle, ArrowRight, Lock, Cpu } from 'lucide-react';
+import { CheckCircle, Circle, Loader, XCircle, ArrowRight, Lock, Cpu, Plane, Ambulance, CheckCircle2, LockKeyhole, Zap } from 'lucide-react';
 
 const PHASE_ORDER = [
   'donor_registered',
@@ -34,14 +34,14 @@ export default function Computation() {
         { id: 'matched',          label: 'Match Found',            desc: 'Compatibility scored, recipient confirmed' },
         { id: 'routing',          label: 'Routing Engine',         desc: 'Ambulance route computed (ground only)' },
         { id: 'in_transit',       label: 'In Transit',             desc: 'Organ en route with BFT handoff tracking' },
-        { id: 'delivered',        label: 'Delivered',              desc: 'Patient saved ✅' },
+        { id: 'delivered',        label: 'Delivered',              desc: <>Patient saved <CheckCircle2 size={12} style={{ display: 'inline', verticalAlign: 'middle' }} color="var(--success)" /></> },
       ]
     : activeScenario === 'cold_chain'
     ? [
         { id: 'donor_registered',    label: 'Package Registered',  desc: 'Organ package initialized' },
         { id: 'cold_chain_active',   label: 'Sensor Stream Active', desc: 'Arduino BLE → Pi Zero → WebSocket' },
         { id: 'in_transit',          label: 'In Transit',           desc: 'Telemetry streaming at 2 Hz' },
-        { id: 'delivered',           label: 'Demo Complete',        desc: 'All events logged ✅' },
+        { id: 'delivered',           label: 'Demo Complete',        desc: <>All events logged <CheckCircle2 size={12} style={{ display: 'inline', verticalAlign: 'middle' }} color="var(--success)" /></> },
       ]
     : [
         { id: 'donor_registered', label: 'Donor Registered',         desc: 'Organ & blood type logged' },
@@ -51,7 +51,7 @@ export default function Computation() {
         { id: 'matched',          label: 'Global Match Found',        desc: 'Optimal recipient identified — zero data exposed' },
         { id: 'routing',          label: 'Multi-Modal Routing',       desc: 'Ground → Air → Ground path computed' },
         { id: 'in_transit',       label: 'In Transit',                desc: 'Tracking active with BFT consensus' },
-        { id: 'delivered',        label: 'Delivered',                 desc: 'Patient saved ✅' },
+        { id: 'delivered',        label: 'Delivered',                 desc: <>Patient saved <CheckCircle2 size={12} style={{ display: 'inline', verticalAlign: 'middle' }} color="var(--success)" /></> },
       ];
 
   const currentIdx = steps.findIndex(s => s.id === scenarioPhase);
@@ -198,7 +198,7 @@ export default function Computation() {
                               </div>
                               <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>compatibility</div>
                             </div>
-                            <div className="badge badge-muted" style={{ fontSize: '0.62rem' }}>🔒 no leak</div>
+                            <div className="badge badge-muted" style={{ fontSize: '0.62rem', display: 'flex', alignItems: 'center', gap: 4 }}><Lock size={10} /> no leak</div>
                           </div>
                         </motion.div>
                       ))}
@@ -212,8 +212,8 @@ export default function Computation() {
                 {matchResult && (
                   <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} className="glass" style={{ padding: 20, border: '1px solid var(--accent)' }}>
                     <div className="flex-between" style={{ marginBottom: 16 }}>
-                      <h3 style={{ color: 'var(--accent)' }}>
-                        {matchResult.smpc_used !== false ? '🔐 Global SMPC Match Found' : '⚡ Domestic Match Found'}
+                      <h3 style={{ color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                        {matchResult.smpc_used !== false ? <><LockKeyhole size={20} /> Global SMPC Match Found</> : <><Zap size={20} /> Domestic Match Found</>}
                       </h3>
                       <span style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--accent)' }}>
                         {matchResult.compatibility_score}%
@@ -247,7 +247,7 @@ export default function Computation() {
                           background: seg.mode === 'air' ? 'rgba(96,165,250,0.06)' : 'rgba(16,185,129,0.06)',
                           border: `1px solid ${seg.mode === 'air' ? 'rgba(96,165,250,0.2)' : 'rgba(16,185,129,0.2)'}`,
                         }}>
-                          <span style={{ fontSize: '1.1rem' }}>{seg.mode === 'air' ? '✈️' : '🚑'}</span>
+                          <span style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center' }}>{seg.mode === 'air' ? <Plane size={18} /> : <Ambulance size={18} />}</span>
                           <div style={{ flex: 1 }}>
                             <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>{seg.from} → {seg.to}</div>
                             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{seg.mode}</div>
@@ -284,7 +284,7 @@ export default function Computation() {
                       border: '1px solid rgba(16,185,129,0.4)',
                     }}
                   >
-                    <div style={{ fontSize: '2.5rem', marginBottom: 8 }}>✅</div>
+                    <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'center' }}><CheckCircle2 size={48} color="var(--success)" /></div>
                     <div style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--success)', marginBottom: 4 }}>
                       Organ Successfully Delivered
                     </div>

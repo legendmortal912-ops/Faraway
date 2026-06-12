@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLifeMeshStore } from '../../store/useLifeMeshStore';
+import { Lock, LockKeyhole, Dna, FileText, IdCard, Droplets, Scissors, Send, Shield, CheckCircle2 } from 'lucide-react';
 
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 const ORGANS = ['Kidney L', 'Kidney R', 'Liver', 'Heart', 'Lung L', 'Lung R', 'Pancreas', 'Cornea'];
@@ -60,7 +61,7 @@ export default function RegisterDonor() {
           {/* Left — PII */}
           <div className="glass" style={{ padding: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-              <span>🔒</span>
+              <Lock size={16} color="#f87171" />
               <h3 style={{ fontWeight: 700, fontSize: '0.95rem' }}>Administrative PII</h3>
               <span style={{ marginLeft: 'auto', fontSize: '0.65rem', background: 'rgba(239,68,68,0.1)', color: '#f87171', padding: '2px 8px', borderRadius: 100, border: '1px solid rgba(239,68,68,0.2)' }}>LOCAL ONLY — NEVER BROADCAST</span>
             </div>
@@ -98,7 +99,7 @@ export default function RegisterDonor() {
           {/* Right — Biological */}
           <div className="glass" style={{ padding: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-              <span>🧬</span>
+              <Dna size={16} color="var(--accent)" />
               <h3 style={{ fontWeight: 700, fontSize: '0.95rem' }}>Biological Parameters</h3>
               <span style={{ marginLeft: 'auto', fontSize: '0.65rem', background: 'rgba(0,212,170,0.1)', color: 'var(--accent)', padding: '2px 8px', borderRadius: 100, border: '1px solid rgba(0,212,170,0.2)' }}>SMPC ENCRYPTED → NETWORK</span>
             </div>
@@ -138,8 +139,8 @@ export default function RegisterDonor() {
         </div>
 
         <div style={{ marginTop: 24, display: 'flex', justifyContent: 'flex-end' }}>
-          <button onClick={handleSubmit} className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700 }}>
-            🔐 Register Donor to Network →
+          <button onClick={handleSubmit} className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <LockKeyhole size={17} /> Register Donor to Network
           </button>
         </div>
       </motion.div>
@@ -158,12 +159,12 @@ function SMPCAnimation({ step, form }) {
           {/* PII Lock */}
           <div style={{ padding: 20, background: 'var(--bg-elevated)', borderRadius: 12, textAlign: 'left' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 12, textTransform: 'uppercase' }}>Administrative PII</div>
-            <div style={{ fontSize: '0.8rem', marginBottom: 8 }}>📄 {form.full_name || 'Patient Name'}</div>
-            <div style={{ fontSize: '0.8rem', marginBottom: 8 }}>🪪 {form.gov_id || 'Gov ID'}</div>
+            <div style={{ fontSize: '0.8rem', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}><FileText size={14} /> {form.full_name || 'Patient Name'}</div>
+            <div style={{ fontSize: '0.8rem', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}><IdCard size={14} /> {form.gov_id || 'Gov ID'}</div>
             {step >= 1 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                style={{ marginTop: 12, padding: '8px 12px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, fontSize: '0.75rem', color: '#f87171', textAlign: 'center' }}>
-                🔒 Locked to local DB
+                style={{ marginTop: 12, padding: '8px 12px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 8, fontSize: '0.75rem', color: '#f87171', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                <Lock size={13} /> Locked to local DB
               </motion.div>
             )}
           </div>
@@ -173,9 +174,9 @@ function SMPCAnimation({ step, form }) {
             <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 12, textTransform: 'uppercase' }}>Biological Markers</div>
             {step < 2
               ? <div style={{ fontSize: '0.8rem', display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <div>🩸 {form.blood_type}</div>
-                  <div>🧬 HLA: {form.hla_a1 || '?'}-{form.hla_b1 || '?'}</div>
-                  <div>🫀 {form.organs.join(', ') || 'Organs'}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Droplets size={14} /> {form.blood_type}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Dna size={14} /> HLA: {form.hla_a1 || '?'}-{form.hla_b1 || '?'}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><Lock size={14} /> {form.organs.join(', ') || 'Organs'}</div>
                 </div>
               : step === 2
               ? <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
@@ -186,13 +187,13 @@ function SMPCAnimation({ step, form }) {
                       {c}
                     </motion.span>
                   ))}
-                  <div style={{ width: '100%', marginTop: 8, fontSize: '0.72rem', color: 'var(--warning)' }}>✂️ Shredding into shares...</div>
+                  <div style={{ width: '100%', marginTop: 8, fontSize: '0.72rem', color: 'var(--warning)', display: 'flex', alignItems: 'center', gap: 6 }}><Scissors size={13} /> Shredding into shares...</div>
                 </motion.div>
               : <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {shares.map((s, i) => (
                     <motion.div key={s} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.15 }}
                       style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.72rem', color: 'var(--accent)' }}>
-                      <span>📤</span><span>{s}</span><span style={{ color: 'var(--text-muted)' }}>→ Node {i + 1}</span>
+                      <Send size={13} /><span>{s}</span><span style={{ color: 'var(--text-muted)' }}>→ Node {i + 1}</span>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -216,7 +217,9 @@ function SuccessState({ form, onReset }) {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="glass" style={{ maxWidth: 560, width: '100%', padding: 40, textAlign: 'center', margin: 24 }}>
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.2 }} style={{ fontSize: '3rem', marginBottom: 20 }}>✅</motion.div>
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.2 }} style={{ marginBottom: 20, display: 'flex', justifyContent: 'center' }}>
+          <CheckCircle2 size={56} color="var(--success)" />
+        </motion.div>
         <h2 style={{ fontWeight: 900, fontSize: '1.5rem', marginBottom: 12 }}>Donor Successfully Registered</h2>
         <p style={{ color: 'var(--text-muted)', marginBottom: 24, lineHeight: 1.7, fontSize: '0.875rem' }}>
           Administrative PII secured to <strong style={{ color: 'var(--accent)' }}>local hospital database only</strong>. Encrypted biological shares broadcast to <strong style={{ color: 'var(--accent)' }}>6 network nodes</strong>. SMPC matching initiated.
@@ -224,8 +227,8 @@ function SuccessState({ form, onReset }) {
         <div style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: 16, marginBottom: 24, textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 8 }}>
           <Row label="Blood Type" value={form.blood_type} />
           <Row label="Organs Available" value={form.organs.join(', ') || '—'} />
-          <Row label="PII Visibility" value="Local database only 🔒" accent />
-          <Row label="Network Exposure" value="Encrypted shares only 🛡️" accent />
+          <Row label="PII Visibility" value={<span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Lock size={13} /> Local database only</span>} accent />
+          <Row label="Network Exposure" value={<span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Shield size={13} /> Encrypted shares only</span>} accent />
         </div>
         <button onClick={onReset} className="btn btn-outline" style={{ width: '100%' }}>Register Another Donor</button>
       </motion.div>
