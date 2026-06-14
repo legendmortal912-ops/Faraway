@@ -5,12 +5,12 @@
   --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --bg-base:    #03070f;
-  --bg-card:    #0d1117;
-  --bg-elevated:#111827;
-  --border:     rgba(255,255,255,0.07);
+  --bg-base:    #0b0e14;
+  --bg-card:    #11161d;
+  --bg-elevated:#151b24;
+  --border:     rgba(255,255,255,0.04);
 
-  --text-primary:   #f1f5f9;
+  --text-primary:   #ffffff;
   --text-secondary: #94a3b8;
   --text-muted:     #4b5563;
 
@@ -60,22 +60,19 @@ input, select, textarea { font-family: inherit; color-scheme: dark; }
 .bg-noise {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
-    radial-gradient(ellipse 800px 600px at 0% 0%, rgba(0,212,170,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 600px 800px at 100% 100%, rgba(167,139,250,0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 800px 600px at 50% 0%, rgba(0,212,170,0.02) 0%, transparent 60%);
 }
 .bg-orb {
-  position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0;
+  display: none;
 }
-.bg-orb-1 { width: 500px; height: 500px; top: -200px; right: -100px; background: rgba(0,212,170,0.04); }
-.bg-orb-2 { width: 600px; height: 600px; bottom: -250px; left: -150px; background: rgba(167,139,250,0.04); }
+.bg-orb-1 { display: none; }
+.bg-orb-2 { display: none; }
 
 /* ── Glassmorphism ─────────────────────────────────────────────────────────── */
 .glass {
-  background: rgba(13,17,23,0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 12px;
   position: relative;
 }
 .glass-hover {
@@ -90,14 +87,14 @@ input, select, textarea { font-family: inherit; color-scheme: dark; }
 /* ── Buttons ───────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 20px; border-radius: 9px; border: none;
+  padding: 10px 20px; border-radius: 8px; border: none;
   font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.2s ease;
   font-family: var(--font-sans);
 }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent) 0%, #00a884 100%);
-  color: #03070f;
+  background: var(--accent);
+  color: #000;
 }
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-1px);

@@ -90,10 +90,10 @@ export default function Landing() {
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
             style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button onClick={() => navigate('/login/hospital')} className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700 }}>
-              <Building2 size={18} /> Hospital Login
+            <button onClick={() => navigate('/login/hospital')} className="btn btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700, background: 'var(--accent)', color: '#000', border: 'none', borderRadius: '8px' }}>
+              <Lock size={18} /> Hospital Login
             </button>
-            <button onClick={() => navigate('/login/logistics')} className="btn btn-outline" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700 }}>
+            <button onClick={() => navigate('/login/logistics')} className="btn btn-outline" style={{ padding: '14px 32px', fontSize: '1rem', fontWeight: 700, background: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}>
               <Plane size={18} /> Logistics Login
             </button>
           </motion.div>
@@ -130,10 +130,10 @@ export default function Landing() {
       </section>
 
       {/* Privacy Guarantee */}
-      <section style={{ padding: '60px 24px', background: 'linear-gradient(135deg, rgba(0,212,170,0.04), rgba(167,139,250,0.04))', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+      <section style={{ padding: '60px 24px', background: 'rgba(255,255,255,0.02)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
           <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}><Lock size={48} color="var(--accent)" /></div>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: 16 }}>Privacy Guaranteed by Mathematics</h2>
+          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: 16, color: '#fff' }}>Privacy Guaranteed by Mathematics</h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
             Patient PII is locked in your hospital's local database. Biological markers are shredded into encrypted Shamir Shares before leaving your network.
             <br /><strong style={{ color: 'var(--accent)' }}>Your patients' names never leave your hospital's database. Ever.</strong>
