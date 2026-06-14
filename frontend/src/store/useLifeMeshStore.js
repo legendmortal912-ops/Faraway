@@ -396,11 +396,51 @@ export const useLifeMeshStore = create((set, get) => ({
     }));
   },
 
-  acceptDonor: (donor_id) => set(s => ({
-    networkDonors: s.networkDonors.map(d =>
-      d.donor_id === donor_id ? { ...d, status: 'ACCEPTED' } : d
-    )
-  })),
+  acceptDonor: (donor_id) => set(s => {
+    const donor = s.networkDonors.find(d => d.donor_id === donor_id);
+    if (!donor) return s;
+
+    const newAlert = {
+      type: 'LOGISTICS_DISPATCH_REQUIRED',
+      message: `New Accepted Donor (${donor_id}) requires carrier dispatch.`,
+      ts: new Date().toISOString(),
+      level: 'INFO'
+    };
+
+    const newRunId = `RUN-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newBoxId = `BOX-${donor.organs[0]?.substring(0,3).toUpperCase() || 'ORG'}-${Math.floor(10 + Math.random() * 90)}`;
+    
+    const newRun = {
+      run_id: newRunId,
+      assigned_vehicle: 'PENDING',
+      boxes: [newBoxId],
+      from_city: donor.city,
+      to_city: 'Pending Match',
+      eta: 'TBD',
+      status: 'ACTIVE',
+      cold_chain_health: 'GOOD'
+    };
+    
+    const newBox = {
+      box_id: newBoxId,
+      hardware_mac: 'PENDING',
+      assigned_vehicle: 'PENDING',
+      organ_profile: `${donor.organs[0] || 'Organ'} (2-8°C)`,
+      status: 'TRANSIT',
+      last_temp: 4.0,
+      last_updated: new Date().toISOString(),
+      alert_count: 0
+    };
+
+    return {
+      networkDonors: s.networkDonors.map(d =>
+        d.donor_id === donor_id ? { ...d, status: 'ACCEPTED' } : d
+      ),
+      activeAlerts: [newAlert, ...s.activeAlerts].slice(0, 50),
+      localRuns: [newRun, ...s.localRuns],
+      localBoxes: [newBox, ...s.localBoxes]
+    };
+  }),
 
   declineDonor: (donor_id) => set(s => ({
     networkDonors: s.networkDonors.map(d =>

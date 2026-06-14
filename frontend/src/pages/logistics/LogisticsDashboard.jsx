@@ -36,7 +36,7 @@ const STATUS_COLORS = { ACTIVE: 'var(--accent)', COMPLETED: 'var(--success)', BR
 const CHAIN_COLORS = { GOOD: 'var(--success)', WARNING: 'var(--warning)', BREACHED: 'var(--danger)', PASS: 'var(--success)' };
 
 export default function LogisticsDashboard() {
-  const { user, localBoxes, localVehicles, telemetryHistory, activeAlerts, addVehicle, addBox } = useLifeMeshStore();
+  const { user, localRuns, localBoxes, localVehicles, telemetryHistory, activeAlerts, addVehicle, addBox } = useLifeMeshStore();
   const navigate = useNavigate();
   const [showVForm, setShowVForm] = useState(false);
   const [showBForm, setShowBForm] = useState(false);
@@ -63,7 +63,7 @@ export default function LogisticsDashboard() {
 
         {/* KPIs */}
         <div className="grid-4" style={{ marginBottom: 20 }}>
-          <KPI icon={<Ambulance size={28} />} label="Active Runs" value={String(DEMO_RUNS.filter(r => r.status === 'ACTIVE').length)} delay={0.05} />
+          <KPI icon={<Ambulance size={28} />} label="Active Runs" value={String(localRuns.filter(r => r.status === 'ACTIVE').length)} delay={0.05} />
           <KPI icon={<Snowflake size={28} />} label="IoT Devices Online" value={String(localBoxes.length)} color="var(--info)" delay={0.1} />
           <KPI icon={<Package size={28} />} label="Boxes in Transit" value={String(localBoxes.filter(b => b.status === 'TRANSIT').length)} color="var(--warning)" delay={0.15} />
           <KPI icon={<AlertTriangle size={28} />} label="Cold Chain Incidents Today" value={String(activeAlerts.length)} color={activeAlerts.length > 0 ? 'var(--danger)' : 'var(--success)'} delay={0.2} />
@@ -113,18 +113,18 @@ export default function LogisticsDashboard() {
                 <tr><th>Run ID</th><th>Vehicle</th><th>Boxes</th><th>Route</th><th>ETA</th><th>Status</th><th>Cold Chain</th><th></th></tr>
               </thead>
               <tbody>
-                {DEMO_RUNS.map((r, i) => (
+                {localRuns.map((r, i) => (
                   <motion.tr key={r.run_id} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
                     <td><code style={{ color: 'var(--accent-light)', fontSize: '0.82rem' }}>{r.run_id}</code></td>
-                    <td style={{ fontSize: '0.82rem' }}>{r.vehicle}</td>
-                    <td style={{ fontFamily: 'var(--font-mono)', textAlign: 'center' }}>{r.boxes}</td>
-                    <td style={{ fontSize: '0.82rem' }}>{r.from} → {r.to}</td>
+                    <td style={{ fontSize: '0.82rem' }}>{r.assigned_vehicle}</td>
+                    <td style={{ fontFamily: 'var(--font-mono)', textAlign: 'center' }}>{r.boxes.length}</td>
+                    <td style={{ fontSize: '0.82rem' }}>{r.from_city} → {r.to_city}</td>
                     <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>{r.eta}</td>
                     <td>
-                      <span style={{ fontSize: '0.72rem', padding: '3px 10px', borderRadius: 100, background: `${STATUS_COLORS[r.status]}18`, color: STATUS_COLORS[r.status] }}>{r.status}</span>
+                      <span style={{ fontSize: '0.72rem', padding: '3px 10px', borderRadius: 100, background: `${STATUS_COLORS[r.status] || 'var(--text-muted)'}18`, color: STATUS_COLORS[r.status] || 'var(--text-muted)' }}>{r.status}</span>
                     </td>
                     <td>
-                      <span style={{ fontSize: '0.68rem', color: CHAIN_COLORS[r.cold_chain], fontWeight: 700 }}>● {r.cold_chain}</span>
+                      <span style={{ fontSize: '0.68rem', color: CHAIN_COLORS[r.cold_chain_health], fontWeight: 700 }}>● {r.cold_chain_health}</span>
                     </td>
                     <td>
                       <button onClick={() => navigate('/logistics/tracking')} className="btn btn-ghost" style={{ fontSize: '0.75rem', padding: '4px 10px' }}>View →</button>

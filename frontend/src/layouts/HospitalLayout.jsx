@@ -5,7 +5,7 @@ import { BarChart, Globe, Plus, Search, Truck, Building2, Shield, ScrollText, La
 
 const NAV = [
   { to: '/hospital/dashboard', icon: <BarChart size={16} />, label: 'Overview' },
-  { to: '/hospital/network-donors', icon: <Globe size={16} />, label: 'Network Donors', coordinatorOnly: true },
+  { to: '/hospital/network-donors', icon: <Globe size={16} />, label: 'Donor Network' },
   { to: '/hospital/register-donor', icon: <Plus size={16} />, label: 'Register Donor', hideForCoordinator: true },
   { to: '/hospital/waitlist', icon: <Search size={16} />, label: 'Waitlist & Matching', hideForCoordinator: true },
   { to: '/hospital/shipments', icon: <Truck size={16} />, label: 'Active Shipments' },
@@ -62,9 +62,9 @@ export default function HospitalLayout() {
 
         {/* Settings & Logout */}
         <div style={{ padding: '12px 10px', borderTop: '1px solid var(--border)' }}>
-          <NavLink to="/hospital/settings" style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: 4 }}>
+          <a href="#" onClick={(e) => e.preventDefault()} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, textDecoration: 'none', fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: 4 }}>
             <span><Settings size={16} /></span><span>Settings</span>
-          </NavLink>
+          </a>
           <button onClick={handleLogout}
             style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, width: '100%', background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', fontSize: '0.85rem' }}>
             <span>↩️</span><span>Sign Out</span>
