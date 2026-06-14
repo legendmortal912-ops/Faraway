@@ -18,7 +18,7 @@ function KPICard({ icon, label, value, sub, color = 'var(--accent)', delay = 0 }
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{label}</div>
-          <div style={{ fontSize: '2.2rem', fontWeight: 900, color, lineHeight: 1 }}>{typeof value === 'string' && isNaN(value) ? value : display}</div>
+          <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>{typeof value === 'string' && isNaN(value) ? value : display}</div>
           {sub && <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 4 }}>{sub}</div>}
         </div>
         <span style={{ fontSize: '1.6rem' }}>{icon}</span>
@@ -77,11 +77,11 @@ export default function HospitalDashboard() {
             <div style={{ fontWeight: 700, marginBottom: 10, fontSize: '0.95rem' }}>{o.organ}</div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem' }}>
               <span style={{ color: 'var(--text-muted)' }}>Waiting</span>
-              <span style={{ fontWeight: 700, color: o.color }}>{o.waiting}</span>
+              <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{o.waiting}</span>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginTop: 4 }}>
               <span style={{ color: 'var(--text-muted)' }}>In Network</span>
-              <span style={{ fontWeight: 700, color: 'var(--success)' }}>{o.available}</span>
+              <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{o.available}</span>
             </div>
             <div style={{ height: 4, background: 'var(--border)', borderRadius: 2, marginTop: 10, overflow: 'hidden' }}>
               <div style={{ height: '100%', width: `${(o.available / Math.max(o.waiting + o.available, 1)) * 100}%`, background: 'var(--success)', borderRadius: 2, transition: 'width 1s ease' }} />

@@ -18,7 +18,7 @@ function KPI({ icon, label, value, color = 'var(--accent-light)', delay = 0 }) {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
           <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>{label}</div>
-          <div style={{ fontSize: '2rem', fontWeight: 900, color }}>{typeof value === 'string' && isNaN(value) ? value : d}</div>
+          <div style={{ fontSize: '2rem', fontWeight: 900, color: 'var(--text-primary)' }}>{typeof value === 'string' && isNaN(value) ? value : d}</div>
         </div>
         <span style={{ fontSize: '1.6rem' }}>{icon}</span>
       </div>

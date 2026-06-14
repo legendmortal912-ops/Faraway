@@ -24,7 +24,7 @@ export default function HospitalLayout() {
     <div style={{ display: 'flex', minHeight: '100vh', position: 'relative', zIndex: 1 }}>
       {/* Sidebar */}
       <motion.aside initial={{ x: -280 }} animate={{ x: 0 }} transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        style={{ width: 240, background: 'var(--bg-card)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 100 }}>
+        style={{ width: 240, background: 'linear-gradient(180deg, var(--bg-card) 0%, rgba(13,17,23,0.95) 100%)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column', position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 100 }}>
 
         {/* Logo */}
         <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid var(--border)' }}>

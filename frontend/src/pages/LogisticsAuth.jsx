@@ -46,15 +46,13 @@ export default function LogisticsAuth({ mode }) {
 
   useEffect(() => {
     document.documentElement.classList.add('theme-logistics');
-    return () => {
-      document.documentElement.classList.remove('theme-logistics');
-    };
+    return () => document.documentElement.classList.remove('theme-logistics');
   }, []);
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex' }}>
       {/* Left panel */}
-      <div style={{ width: '42%', background: 'linear-gradient(145deg, rgba(var(--accent-light-rgb),0.08), rgba(var(--accent-light-rgb),0.02))', borderRight: '1px solid var(--border)', padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <div style={{ width: '42%', background: 'linear-gradient(145deg, rgba(167,139,250,0.08), rgba(167,139,250,0.02))', borderRight: '1px solid var(--border)', padding: '48px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ marginBottom: 40 }}>
           <div style={{ marginBottom: 12, display: 'flex' }}><Plane size={36} color="var(--accent-light)" /></div>
           <h1 style={{ fontSize: '2rem', fontWeight: 900, marginBottom: 12 }}>Logistics Portal</h1>
@@ -69,7 +67,7 @@ export default function LogisticsAuth({ mode }) {
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 40, padding: 16, background: 'rgba(var(--accent-light-rgb),0.06)', borderRadius: 10, border: '1px solid rgba(var(--accent-light-rgb),0.15)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+        <div style={{ marginTop: 40, padding: 16, background: 'rgba(167,139,250,0.06)', borderRadius: 10, border: '1px solid rgba(167,139,250,0.15)', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
           <strong style={{ color: 'var(--accent-light)', display: 'block', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}><Plane size={14} /> Demo Accounts</strong>
           {[
             ['DHL Medical Express', 'ops@dhl-medical.com', 'dhl123'],
@@ -108,7 +106,7 @@ export default function LogisticsAuth({ mode }) {
                 <Field label="Operations Email" value={form.email} onChange={v => set('email', v)} type="email" placeholder="ops@carrier.com" />
                 <Field label="Password" value={form.password} onChange={v => set('password', v)} type="password" placeholder="••••••••" />
                 {error && <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', fontSize: '0.82rem', color: '#f87171', marginBottom: 16 }}>{error}</div>}
-                <button onClick={handleLogin} disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: '13px', fontSize: '0.95rem', marginTop: 8, background: 'linear-gradient(135deg, var(--accent-light), var(--accent))' }}>
+                <button onClick={handleLogin} disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: '13px', fontSize: '0.95rem', marginTop: 8, background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)' }}>
                   {loading ? 'Authenticating...' : 'Sign In →'}
                 </button>
               </motion.div>
@@ -132,7 +130,7 @@ export default function LogisticsAuth({ mode }) {
                       <div style={{ display: 'flex', gap: 10 }}>
                         {CARRIER_TYPES.map(t => (
                           <button key={t} onClick={() => set('carrier_type', t)}
-                            style={{ flex: 1, padding: '10px 8px', borderRadius: 8, border: `1px solid ${form.carrier_type === t ? 'var(--accent-light)' : 'var(--border)'}`, background: form.carrier_type === t ? 'rgba(var(--accent-light-rgb),0.1)' : 'transparent', color: form.carrier_type === t ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600 }}>
+                            style={{ flex: 1, padding: '10px 8px', borderRadius: 8, border: `1px solid ${form.carrier_type === t ? 'var(--accent-light)' : 'var(--border)'}`, background: form.carrier_type === t ? 'rgba(167,139,250,0.1)' : 'transparent', color: form.carrier_type === t ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600 }}>
                             {t}
                           </button>
                         ))}
@@ -156,7 +154,7 @@ export default function LogisticsAuth({ mode }) {
                       <div style={{ display: 'flex', gap: 8 }}>
                         {['Yes', 'No', 'Pending'].map(o => (
                           <button key={o} onClick={() => set('iata_certified', o)}
-                            style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${form.iata_certified === o ? 'var(--accent-light)' : 'var(--border)'}`, background: form.iata_certified === o ? 'rgba(var(--accent-light-rgb),0.1)' : 'transparent', color: form.iata_certified === o ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.82rem' }}>
+                            style={{ flex: 1, padding: '8px', borderRadius: 8, border: `1px solid ${form.iata_certified === o ? 'var(--accent-light)' : 'var(--border)'}`, background: form.iata_certified === o ? 'rgba(167,139,250,0.1)' : 'transparent', color: form.iata_certified === o ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.82rem' }}>
                             {o}
                           </button>
                         ))}
@@ -167,7 +165,7 @@ export default function LogisticsAuth({ mode }) {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                         {FLEET_TYPES.map(t => (
                           <button key={t} onClick={() => toggleArr('fleet_types', t)}
-                            style={{ padding: '6px 14px', borderRadius: 100, border: `1px solid ${form.fleet_types.includes(t) ? 'var(--accent-light)' : 'var(--border)'}`, background: form.fleet_types.includes(t) ? 'rgba(var(--accent-light-rgb),0.1)' : 'transparent', color: form.fleet_types.includes(t) ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.8rem' }}>
+                            style={{ padding: '6px 14px', borderRadius: 100, border: `1px solid ${form.fleet_types.includes(t) ? 'var(--accent-light)' : 'var(--border)'}`, background: form.fleet_types.includes(t) ? 'rgba(167,139,250,0.1)' : 'transparent', color: form.fleet_types.includes(t) ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.8rem' }}>
                             {t}
                           </button>
                         ))}
@@ -178,7 +176,7 @@ export default function LogisticsAuth({ mode }) {
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                         {REGIONS.map(r => (
                           <button key={r} onClick={() => toggleArr('operating_regions', r)}
-                            style={{ padding: '6px 14px', borderRadius: 100, border: `1px solid ${form.operating_regions.includes(r) ? 'var(--accent-light)' : 'var(--border)'}`, background: form.operating_regions.includes(r) ? 'rgba(var(--accent-light-rgb),0.1)' : 'transparent', color: form.operating_regions.includes(r) ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.8rem' }}>
+                            style={{ padding: '6px 14px', borderRadius: 100, border: `1px solid ${form.operating_regions.includes(r) ? 'var(--accent-light)' : 'var(--border)'}`, background: form.operating_regions.includes(r) ? 'rgba(167,139,250,0.1)' : 'transparent', color: form.operating_regions.includes(r) ? 'var(--accent-light)' : 'var(--text-muted)', cursor: 'pointer', fontSize: '0.8rem' }}>
                             {r}
                           </button>
                         ))}
@@ -191,7 +189,7 @@ export default function LogisticsAuth({ mode }) {
                     <Field label="Number of Ground Vehicles" value={form.num_ground} onChange={v => set('num_ground', v)} placeholder="12" />
                     <Field label="Number of Air-Capable Routes" value={form.num_air_routes} onChange={v => set('num_air_routes', v)} placeholder="4" />
                     <Field label="Number of IoT-Enabled Containers" value={form.num_iot_boxes} onChange={v => set('num_iot_boxes', v)} placeholder="24" />
-                    <p style={{ marginTop: 8, fontSize: '0.78rem', color: 'var(--text-muted)', background: 'rgba(var(--accent-light-rgb),0.05)', padding: '8px 12px', borderRadius: 6, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                    <p style={{ marginTop: 8, fontSize: '0.78rem', color: 'var(--text-muted)', background: 'rgba(167,139,250,0.05)', padding: '8px 12px', borderRadius: 6, display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                       <RadioTower size={14} style={{ flexShrink: 0, marginTop: 2, color: 'var(--accent-light)' }} /> You will register each container's hardware MAC address individually in your Fleet Dashboard after login.
                     </p>
                   </div>
@@ -211,8 +209,8 @@ export default function LogisticsAuth({ mode }) {
                 <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
                   {step > 1 && <button onClick={() => setStep(s => s - 1)} className="btn btn-outline" style={{ flex: 1 }}>← Back</button>}
                   {step < 4
-                    ? <button onClick={() => setStep(s => s + 1)} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), var(--accent))' }}>Next →</button>
-                    : <button onClick={handleSignup} disabled={loading} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), var(--accent))', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6 }}>
+                    ? <button onClick={() => setStep(s => s + 1)} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)' }}>Next →</button>
+                    : <button onClick={handleSignup} disabled={loading} className="btn btn-primary" style={{ flex: 1, background: 'linear-gradient(135deg, var(--accent-light), #7c3aed)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6 }}>
                         {loading ? 'Registering Carrier...' : <><Plane size={16} /> Register Carrier Node</>}
                       </button>
                   }
