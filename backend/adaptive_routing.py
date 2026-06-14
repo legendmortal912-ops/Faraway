@@ -81,10 +81,10 @@ class AdaptiveReroutingEngine:
                 for s in new_segs
             ] if new_segs else [],
             "message": (
-                f"✈️ Route recalculated. New ETA: {round(new_min / 60, 1)}h. "
+                f"[FLIGHT] Route recalculated. New ETA: {round(new_min / 60, 1)}h. "
                 f"Viability remaining: {round(remaining_hours, 1)}h."
             ) if feasible else
-            "⚠️ CRITICAL: No feasible route within viability window. Emergency protocol active.",
+            "[WARNING] CRITICAL: No feasible route within viability window. Emergency protocol active.",
         }
 
         if new_segs and feasible:
